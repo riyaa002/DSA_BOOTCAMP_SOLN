@@ -12,6 +12,7 @@ class Solution {
     }
 }
 
+//Concatenation of Array
 // Given an integer array nums of length n, you want to create an array ans of length 2n
 // where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed). Specifically, ans is the concatenation of two nums arrays.Return the array ans.
 
@@ -27,7 +28,8 @@ class Solution {
     }
 }
 
-//    Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]). Return the running sum of nums.
+//    Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+// Return the running sum of nums.
 
 class Solution {
     public int[] runningSum(int[] nums) {
@@ -58,6 +60,113 @@ class Solution {
     }
 }
 
+// shuffle the array
+// Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn].
+// Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+        int[] shuffle = new int[2*n];
+        for (int i = 0; i < n; i++) {
+            shuffle[2*i] = nums[i];
+            shuffle[(2*i)+1] = nums[i+n];
+        }
+        return shuffle;
+    }
+}
+
+
+//1431. Kids With the Greatest Number of Candies
+
+class Solution {
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        ArrayList<Boolean> list=new ArrayList<Boolean>();
+        int max = candies[0];
+        for(int i=0; i<candies.length; i++){
+            if (candies[i]>max){
+                max=candies[i];
+            }
+        }
+        for(int i=0; i<candies.length; i++){
+            list.add(candies[i]+extraCandies>=max);
+        }
+        return list;
+    }
+}
+
+//1512. Number of Good Pairs
+class Solution {
+    public int numIdenticalPairs(int[] nums) {
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i+1; j < nums.length; j++) {
+                if(nums[i] == nums[j]){
+                    ans = ans +1;
+//                    System.out.println(nums[i]+" "+nums[j]);
+                }
+            }
+        }
+        return ans;
+    }
+}
+
+
+//1365. How Many Numbers Are Smaller Than the Current Number
+
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int[] ans = new int[nums.length];
+        for(int i=0; i<nums.length; i++){
+            int count = 0;
+            for(int j=0; j<nums.length; j++){
+                if(nums[j]<nums[i]){
+                    count += 1;
+                }
+            }
+            ans[i]=count;
+        }
+        return ans;
+    }
+}
+
+//1389. Create Target Array in the Given Order
+class Solution {
+    public int[] createTargetArray(int[] nums, int[] index) {
+        int[] target = new int[nums.length];
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            list.add(index[i],nums[i]);
+
+        }
+        for(int i=0;i<list.size();i++){
+            target[i] = list.get(i);
+        }
+        return target;
+    }
+}
+
+
+//1732. Find the Highest Altitude
+class Solution {
+    public int largestAltitude(int[] gain) {
+        ArrayList<Integer> altitudes = new ArrayList<>(gain.length + 1);
+        altitudes.add(0);
+        for (int i = 0; i < gain.length; i++) {
+            altitudes.add(gain[i] + altitudes.get(i));
+        }
+        System.out.println("The altitudes are "+altitudes);
+        int highest = 0;
+        for (int i = 0; i < altitudes.size(); i++) {
+            if(altitudes.get(i)> highest){
+                highest = altitudes.get(i);
+            }
+        }
+        return highest;
+    }
+}
+
+
+
 // Contains Duplicate
 
 class Solution {
@@ -72,3 +181,4 @@ class Solution {
         return false;
     }
 }
+
