@@ -182,3 +182,47 @@ class Solution {
     }
 }
 
+
+
+//832. Flipping an Image
+
+class Solution {
+    public int[][] flipAndInvertImage(int[][] image) {
+        int [][] result = new int[image.length][image.length];   //result array
+        //reverse the array
+        for (int i = 0; i < image.length; i++) {
+            for (int j = 0; j < image[i].length; j++) {
+                result[i][j] = image[i][image.length - 1 - j];   //resversing horizontally
+
+                //Inverting the values
+                if(result[i][j] == 0){
+                    result[i][j] = 1;
+                }
+                else if(result[i][j] == 1){
+                    result[i][j] = 0;
+                }
+            }
+        }
+        return result;
+    }
+}
+
+
+//1572. Matrix Diagonal Sum
+class Solution {
+    public int diagonalSum(int[][] matrix) {
+        int sum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length ; j++) {
+                //getting the diagonal elements
+                if (i == j || i + j == matrix.length - 1) {
+                    sum += (matrix[i][j]);//getting sum
+                }
+            }
+        }
+        return sum;
+    }
+}
+
+
+
