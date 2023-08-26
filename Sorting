@@ -1,0 +1,238 @@
+//88. Merge Sorted Array
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        //first merge the two arrays
+        int j = 0;
+        for (int i = m; i < nums1.length; i++) {
+            nums1[i] = nums2[j];
+            j+=1;
+        }
+        //sort the merged array
+        for (int i = 0; i < nums1.length; i++) {
+            //j is for inner loop
+            for (int k = 1; k < nums1.length - i; k++) {
+                if (nums1[k] < nums1[k-1]){
+                    //swap
+                    int temp = nums1[k];
+                    nums1[k] = nums1[k - 1];
+                    nums1[k-1] = temp;
+                }
+            }
+        }
+    }
+}
+
+//414. Third Maximum Number
+
+class Solution {
+    public int thirdMax(int[] arr) {
+        bubbleSort(arr);
+        int count = 1;
+        int max = arr[0];
+        for (int i = 1; i < arr.length; ++i) {
+            if (max != arr[i]) {
+                max = arr[i];
+                count += 1;
+            }
+            if (count == 3) {
+                return max;
+            }
+        }
+        return arr[0];
+    }
+
+    public void bubbleSort(int[] arr){
+        //i is for counter
+        for (int i = 0; i < arr.length; i++) {
+            //j is for inner loop
+            for (int j = 1; j < arr.length - i; j++) {
+                if (arr[j] > arr[j-1]){
+                    //swap
+                    int temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j-1] = temp;
+                }
+            }
+        }
+    }
+}
+
+
+
+//455. Assign Cookies
+
+class Solution {
+    public int findContentChildren(int[] children, int[] cookie) {
+        bubbleSort(children);
+        bubbleSort(cookie);
+        int contentChild = 0;
+        int i = 0;
+        int j = 0;
+        while (i < children.length && j < cookie.length) {
+            if (cookie[j] >= children[i]) {
+                contentChild++;
+                i++;
+            }
+            j++;
+        }
+        return contentChild;
+    }
+    static void bubbleSort(int[] arr){
+        //i is for counter
+        for (int i = 0; i < arr.length; i++) {
+            //j is for inner loop
+            for (int j = 1; j < arr.length - i; j++) {
+                if (arr[j] < arr[j-1]){
+                    //swap
+                    int temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j-1] = temp;
+                }
+            }
+        }
+    }
+}
+
+
+
+//268. missing number
+class Solution {
+    public int missingNumber(int[] arr) {
+         int missingNum = arr.length;
+        //sort
+        Sort(arr);
+        //find missing
+        int i = 0;
+        while ( i < arr.length) {
+            if (arr[i]==i){
+                i++;
+            }else {
+                missingNum = i;
+                break;
+            }
+        }
+        return missingNum;
+    }
+
+    public static void Sort(int[] arr){
+        int i = 0;
+        while (i<arr.length){
+            if(arr[i] == arr.length){
+                i++;
+            }
+            //check if element at i is correct
+            //value should be = index
+            else if (i == (arr[i])){
+                //increment only if element is at correct position
+                i++;
+            }else{
+                int index = arr[i];
+                //swap at correct index
+                int temp = arr[i];
+                arr[i] = arr[index];
+                arr[index] = temp;
+            }
+
+        }
+    }
+}
+
+//448. Find All Numbers Disappeared in an Array
+
+class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        ArrayList<Integer> dissapearedNums = new ArrayList<>();
+        Sort(nums);
+        int i = 0;
+        while ( i < nums.length) {
+            if(i == (nums[i]-1)){
+                i++;
+            }else {
+                dissapearedNums.add(i+1);
+                i++;
+            }
+        }
+        return dissapearedNums;
+    }
+    public static void Sort(int[] arr){
+        int i = 0;
+        while (i<arr.length){
+
+            //check if element at i is correct
+            //value should be = index
+            if (i == (arr[i]-1)){
+                //increment only if element is at correct position
+                i++;
+            } else {
+                int index = arr[i] - 1;
+                //in case there is repeated number
+                if (arr[index] == arr[i]) {
+                    i++;
+                } else {
+                    //swap at correct index
+                    int temp = arr[i];
+                    arr[i] = arr[index];
+                    arr[index] = temp;
+                }
+            }
+        }
+    }
+}
+
+
+//628. Maximum Product of Three Numbers
+class Solution {
+    public int maximumProduct(int[] nums) {
+    Sort(nums);
+    return Math.max(nums[0] * nums[1] * nums[nums.length - 1], nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3]);
+    }
+    static void Sort(int[] arr){
+        //i is for counter
+        for (int i = 0; i < arr.length; i++) {
+            //j is for inner loop
+            for (int j = 1; j < arr.length - i; j++) {
+                if (arr[j] < arr[j-1]){
+                    //swap
+                    int temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j-1] = temp;
+                }
+            }
+        }
+    }
+}
+//-------------alternate solution
+class Solution {
+    public int maximumProduct(int[] nums) {
+    Arrays.sort(nums);
+    return Math.max(nums[0] * nums[1] * nums[nums.length - 1], nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3]);
+    }
+}
+
+
+//977. Squares of a Sorted Array
+
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int[] Sortedsq = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            Sortedsq[i] = nums[i] * nums[i];
+        }
+        Sort(Sortedsq);
+        return Sortedsq;
+    }
+    static void Sort(int[] arr){
+        //i is for counter
+        for (int i = 0; i < arr.length; i++) {
+            //j is for inner loop
+            for (int j = 1; j < arr.length - i; j++) {
+                if (arr[j] < arr[j-1]){
+                    //swap
+                    int temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j-1] = temp;
+                }
+            }
+        }
+    }
+}
